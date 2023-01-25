@@ -1,6 +1,6 @@
 ## SproutCSS 🌱
 
-Sprout is a tiny open source collection of CSS component blueprints.
+Sprout is a tiny collection of CSS component blueprints.
 
 View the components [here.](https://sproutcss-dejmedus-vercel.app)
 
