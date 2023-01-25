@@ -2,7 +2,7 @@
 
 Sprout is a tiny collection of CSS component blueprints.
 
-View the components [here.](https://sproutcss-dejmedus-vercel.app)
+View the components [here.](https://sprout-docs.vercel.app)
 
 Check out the source code on [Github.](https://github.com/dejmedus/sproutcss)
 
