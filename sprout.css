@@ -1,0 +1,73 @@
+:root {
+  --light: #f8f8f8;
+  --lightGrey: rgb(202, 202, 202);
+  --dark: rgb(62, 62, 62);
+  --darkGrey: rgb(93, 93, 93);
+
+  --primary: rgb(107, 166, 255);
+  --primary-0: rgb(131, 179, 250);
+  --primary-1: rgb(67, 139, 247);
+
+  --padding-xs: 0.4em 0.8em;
+  --padding-sm: 0.6em 1em;
+  --padding: 0.5em 1.4em;
+  --padding-md: 0.6em 1.8em;
+  --padding-lg: 0.4em 2em;
+}
+
+.btn-round {
+  border-radius: 64px;
+  border: 1px solid var(--primary);
+  background-color: var(--primary);
+  color: var(--light);
+  font-weight: 600;
+}
+.btn-rounded {
+  border-radius: 8px;
+  border: 1px solid var(--primary);
+  background-color: var(--primary);
+  color: var(--light);
+  font-weight: 600;
+}
+.btn-square {
+  border-radius: 2px;
+  border: 1px solid var(--primary);
+  background-color: var(--primary);
+  color: var(--light);
+  font-weight: 600;
+}
+
+.btn-xs {
+  padding: var(--padding-xs);
+  font-size: x-small;
+}
+.btn-sm {
+  padding: var(--padding-sm);
+  font-size: small;
+}
+.btn {
+  padding: var(--padding);
+  font-size: medium;
+}
+.btn-md {
+  padding: var(--padding-md);
+  font-size: large;
+}
+.btn-lg {
+  padding: var(--padding-lg);
+  font-size: x-large;
+}
+
+.btn-outline:hover {
+  border: 1px solid var(--primary);
+  background-color: var(--light);
+  color: var(--primary);
+}
+.btn-darker:hover {
+  border: 1px solid var(--primary-1);
+  background-color: var(--primary-1);
+}
+.btn-lighter:hover {
+  border: 1px solid var(--primary-0);
+  background-color: var(--primary-0);
+}

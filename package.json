@@ -1,0 +1,13 @@
+{
+  "name": "sproutcss",
+  "version": "1.0.0",
+  "description": "A tiny CSS component library 🌱",
+  "main": "sprout.css",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "dejmedus",
+  "license": "ISC",
+  "homepage": "https://sproutcss-dejmedus-vercel.app"
+}
