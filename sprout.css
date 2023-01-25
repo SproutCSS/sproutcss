@@ -1,12 +1,13 @@
 :root {
   --light: #f8f8f8;
-  --lightGrey: rgb(202, 202, 202);
+  --lightGrey: rgb(212, 212, 212);
   --dark: rgb(62, 62, 62);
   --darkGrey: rgb(93, 93, 93);
 
   --primary: rgb(107, 166, 255);
-  --primary-0: rgb(131, 179, 250);
-  --primary-1: rgb(67, 139, 247);
+  --primary-partial: rgb(107, 166, 255, 0.5);
+  --primary-light: rgb(131, 179, 250);
+  --primary-dark: rgb(67, 139, 247);
 
   --padding-xs: 0.4em 0.8em;
   --padding-sm: 0.6em 1em;
@@ -15,59 +16,84 @@
   --padding-lg: 0.4em 2em;
 }
 
-.btn-round {
-  border-radius: 64px;
-  border: 1px solid var(--primary);
-  background-color: var(--primary);
-  color: var(--light);
-  font-weight: 600;
-}
-.btn-rounded {
-  border-radius: 8px;
-  border: 1px solid var(--primary);
-  background-color: var(--primary);
-  color: var(--light);
-  font-weight: 600;
-}
-.btn-square {
-  border-radius: 2px;
+/* 
+Buttons
+-------------------------- */
+.btn {
   border: 1px solid var(--primary);
   background-color: var(--primary);
   color: var(--light);
   font-weight: 600;
 }
 
-.btn-xs {
-  padding: var(--padding-xs);
+.btn.round {
+  border-radius: 64px;
+}
+.btn.rounded {
+  border-radius: 8px;
+}
+.btn.square {
+  border-radius: 2px;
+}
+
+.btn.xs {
+  padding: var(--padding-sm);
   font-size: x-small;
 }
-.btn-sm {
+.btn.sm {
   padding: var(--padding-sm);
   font-size: small;
 }
-.btn {
+.btn.md {
   padding: var(--padding);
   font-size: medium;
 }
-.btn-md {
+.btn.lg {
   padding: var(--padding-md);
   font-size: large;
 }
-.btn-lg {
+.btn.xl {
   padding: var(--padding-lg);
   font-size: x-large;
 }
 
-.btn-outline:hover {
+.btn.outline:hover {
   border: 1px solid var(--primary);
   background-color: var(--light);
   color: var(--primary);
 }
-.btn-darker:hover {
-  border: 1px solid var(--primary-1);
-  background-color: var(--primary-1);
+.btn.darker:hover {
+  border: 1px solid var(--primary-dark);
+  background-color: var(--primary-dark);
 }
-.btn-lighter:hover {
-  border: 1px solid var(--primary-0);
-  background-color: var(--primary-0);
+.btn.lighter:hover {
+  border: 1px solid var(--primary-light);
+  background-color: var(--primary-light);
+}
+
+/* 
+Inputs
+-------------------------- */
+.text-i {
+  border: 1px solid var(--lightGrey);
+}
+
+.text-i.sqaure {
+  border-radius: 2px;
+}
+.text-i.rounded {
+  border-radius: 8px;
+}
+
+.text-i.sm {
+  padding: var(--padding-xs);
+  font-size: small;
+}
+.text-i.md {
+  padding: var(--padding-xs);
+  font-size: medium;
+}
+.text-i.lg {
+  padding: var(--padding-xs);
+  font-size: large;
 }
