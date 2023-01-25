@@ -22,5 +22,8 @@ Check out the source code on [Github.](https://github.com/dejmedus/sproutcss)
 4. Enjoy!
 
 ### Change Log
-#### 1.0.0
-- A snazzy button
+View the full changelog [here](https://sprout-docs.vercel.app/changelog)
+#### 1.1.0
+- Simplified styling. No more btn-lg, just lg.
+- Sizing syntax. Choose from xs, sm, md, lg, and xl
+- Text inputs
