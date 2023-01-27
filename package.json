@@ -1,6 +1,6 @@
 {
   "name": "sproutcss",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A tiny CSS component library 🌱",
   "main": "sprout.css",
   "scripts": {
