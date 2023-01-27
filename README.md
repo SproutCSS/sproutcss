@@ -23,7 +23,12 @@ Check out the source code on [Github.](https://github.com/dejmedus/sproutcss)
 
 ### Change Log
 View the full changelog [here](https://sprout-docs.vercel.app/changelog)
-#### 1.1.0
-- Simplified styling. No more btn-lg, just lg.
-- Sizing syntax. Choose from xs, sm, md, lg, and xl
-- Text inputs
+#### 1.2.0
+- Shorter class names. text-i is now txt-i.
+- Better component darkmode styling.
+- New greyscale colors.
+
+New components
+- Number inputs
+- New buttons styles
+- Cards
