@@ -1,34 +1,48 @@
 #!/usr/bin/env node
-
+console.time()
 const { opendir, readFile, writeFile, appendFile } = require('node:fs/promises');
 const { resolve, join } = require('node:path');
+
 // const { config } = require('../../sprout.config');
 
-const rootPath = resolve(__dirname, '../../..');
-const config = require(join(rootPath, 'sprout.config.js'));
-const { config } = require('./sprout.config');
+// const rootPath = resolve(__dirname, '../../');
+// const { config } = require(join(rootPath, 'sprout.config.js'));
 
-// use the config object
-console.log(config);
+let config = {
+    filename: "sprout.css",
+    files: [
+        ".html",
+        ".js"
+    ],
+    ignore: [
+        "folder1"
+    ]
+}
+
+for (let i = 0; i < config.files.length; i++) {
+
+    if (config.files[i].startsWith(".")) {
+        config.files[i] = config.files[i].slice(1);
+    }
+}
 
 
 let writePath = "";
 
 (async function () {
     let classesStr = "";
-    console.log("running");
+
     try {
-        // get all unique css classes in the directory, filter out empty strings, and sort alphabetically
+        // get all unique css classes in the repository, filter out empty strings, and sort alphabetically
         const allClasses = [...new Set(await getFiles(".", config.files))].filter(Boolean).sort();
 
-        const filePath = resolve("./sprout.css");
+        const filePath = resolve(__dirname, "./sprout.css");
         const contents = await readFile(filePath, { encoding: 'utf8' });
 
         // copy over :root & darkmode root variables
         const vars = contents.match(/\:root\s*{[\s\S]*?}/gm).join("\n");
         let rootArr = [];
         const darkmodeVars = contents.match(/\[data-theme="dark"]\s*{[\s\S]*?}/gm).join("\n");
-
         let darkmodeArr = [];
 
 
@@ -36,30 +50,34 @@ let writePath = "";
             const regex = new RegExp('\\.' + allClasses[i] + '\\s*{[\\s\\S]*?}', 'gm');
             const result = contents.match(regex);
 
-            // get css variables
-            const variables = result.join("\n").matchAll(/var\((.*?)\)/gm);
-            for (let variable of variables) {
-
-                const varRegex = new RegExp(variable[1] + ':.*?\n', 'gm');
-                rootArr.push(...vars.match(varRegex));
-                // SOMETHING STRANGE HERE AFTER ADDING .JS FILE OPTION
-                let darkmodeResult = darkmodeVars.match(varRegex);
-                if (darkmodeResult != null) {
-                    darkmodeArr.push(darkmodeResult[0]);
-                }
-            }
             if (result != null) {
+
+                // get css variables
+                const variables = result.join("\n").matchAll(/var\((.*?)\)/gm);
+                for (let variable of variables) {
+
+                    const varRegex = new RegExp(variable[1] + ':.*?\n', 'gm');
+                    rootArr.push(...vars.match(varRegex));
+                    let darkmodeResult = darkmodeVars.match(varRegex);
+                    if (darkmodeResult != null) {
+                        darkmodeArr.push(darkmodeResult[0]);
+                    }
+                }
                 classesStr += `\n${result}`;
+            }
+            else {
+                console.error(allClasses[i], "CSS style is missing")
             }
         }
 
         rootArr = [...new Set(rootArr)].sort().join(' ');
         darkmodeArr = [...new Set(darkmodeArr)].sort().join(' ');
 
-        await writeFile(writePath, `:root {\n${rootArr}}`);
+        await writeFile(writePath, `/* Generated SproutCSS stylesheet \n CHANGES TO THIS FILE WILL BE OVERWRITTEN ON NEXT NPX SPROUTCSS.\n CHANGES T0 SPROUT CLASSES SHOULD BE MADE TO NODE_MODULES/SPROUTCSS/SPROUT.CSS BEFORE GENERATING IF NECESSARY */\n\n`);
+        await appendFile(writePath, `:root {\n${rootArr}}`);
         await appendFile(writePath, `\n[data-theme="dark"]{\n${darkmodeArr}}`);
         await appendFile(writePath, `\n${classesStr}`);
-
+        console.timeEnd()
     } catch (err) {
         console.error(err);
     }
@@ -74,7 +92,6 @@ async function getFiles(folder, files) {
         // get path of file to write to, defined in sprout.config
         if (dirent.name == config.filename) {
             writePath = `${folder}/${dirent.name}`;
-            console.log(writePath);
         }
 
         if (files.includes(dirent.name.split('.').pop()) || (!dirent.name.includes('.') && dirent.name != "node_modules")) {
@@ -88,6 +105,7 @@ async function getFiles(folder, files) {
             }
         }
     }
+
     return allClasses;
 }
 
@@ -104,13 +122,14 @@ async function getCSS(file) {
         for (let result of results) {
             const { css } = result.groups;
             const arr = css.split(" ");
+            // if the first css class is a component name
             if (components.includes(arr[0])) {
                 transformClasses(arr)
             }
             else {
                 for (let i = 1; i < arr.length; i++) {
                     if (components.includes(arr[i])) {
-                        // move component to index 0
+                        // when component name is found, move it to index 0
                         arr.splice(i + 1, 0, arr.splice(i, 1)[0]);
                         transformClasses(arr);
                         break;
@@ -129,7 +148,9 @@ async function getCSS(file) {
 function transformClasses(arr) {
     const colors = ["black", "grey", "primary", "red", "orange", "yellow", "green", "blue", "purple", "pink"];
 
-    // color on hover is either specificed h-[color] or its specified color or primary
+    // if component has a  h-[color], hoverColor = h-[color]
+    // else if component has a [color], hoverColor = [color] 
+    // else hoverColor = primary
     let hoverColor = colors.filter(a => arr.includes(`h-${a}`))[0];
     if (hoverColor == null) {
         hoverColor = colors.filter(a => arr.includes(a))[0];
