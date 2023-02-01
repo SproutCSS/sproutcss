@@ -3,10 +3,22 @@
   "version": "1.2.1",
   "description": "A tiny CSS component library 🌱",
   "main": "sprout.css",
+  "style": "sprout.css",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dejmedus/sproutcss"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "bin": {
+    "sproutcss": "./sprout.js"
+  },
+  "keywords": [
+    "css",
+    "responsive",
+    "front-end"
+  ],
   "author": "dejmedus",
   "license": "ISC",
   "homepage": "https://sprout-docs.vercel.app"
