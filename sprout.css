@@ -124,7 +124,7 @@ Buttons
   background-color: var(--primary-light);
   border-color: var(--primary-light);
 }
-.btn.h-primary{
+.btn.h-primary:hover{
   background-color: var(--primary);
   border-color: var(--primary);
 }
@@ -174,7 +174,7 @@ Buttons
   background-color: var(--grey-light);
   border-color: var(--grey-light);
 }
-.btn.h-grey{
+.btn.h-grey:hover{
   background-color: var(--grey);
   border-color: var(--grey);
 }
@@ -207,7 +207,7 @@ Buttons
   background-color: var(--red-light);
   border-color: var(--red-light);
 }
-.btn.h-red{
+.btn.h-red:hover{
   background-color: var(--red);
   border-color: var(--red);
 }
@@ -239,7 +239,7 @@ Buttons
   background-color: var(--orange-light);
   border-color: var(--orange-light);
 }
-.btn.h-orange{
+.btn.h-orange:hover{
   background-color: var(--orange);
   border-color: var(--orange);
 }
@@ -271,7 +271,7 @@ Buttons
   background-color: var(--yellow-light);
   border-color: var(--yellow-light);
 }
-.btn.h-yellow{
+.btn.h-yellow:hover{
   background-color: var(--yellow);
   border-color: var(--yellow);
 }
@@ -303,7 +303,7 @@ Buttons
   background-color: var(--green-light);
   border-color: var(--green-light);
 }
-.btn.h-green{
+.btn.h-green:hover{
   background-color: var(--green);
   border-color: var(--green);
 }
@@ -335,7 +335,7 @@ Buttons
   background-color: var(--blue-light);
   border-color: var(--blue-light);
 }
-.btn.h-blue{
+.btn.h-blue:hover{
   background-color: var(--blue);
   border-color: var(--blue);
 }
@@ -367,7 +367,7 @@ Buttons
   background-color: var(--purple-light);
   border-color: var(--purple-light);
 }
-.btn.h-purple{
+.btn.h-purple:hover{
   background-color: var(--purple);
   border-color: var(--purple);
 }
@@ -399,7 +399,7 @@ Buttons
   background-color: var(--pink-light);
   border-color: var(--pink-light);
 }
-.btn.h-pink{
+.btn.h-pink:hover{
   background-color: var(--pink);
   border-color: var(--pink);
 }
@@ -926,7 +926,7 @@ Inputs
   padding: var(--padding-xs);
 }
 
-.txt-i.sqaure {
+.txt-i.square {
   border-radius: 2px;
 }
 .txt-i.rounded {
