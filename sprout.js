@@ -1,36 +1,71 @@
 #!/usr/bin/env node
-console.time()
-const { opendir, readFile, writeFile, appendFile } = require('node:fs/promises');
+
+const { writeFile } = require('node:fs/promises');
+let command = process.argv[2]
+
+if (command != null) {
+    command = command.toLowerCase();
+    if (command == '--setup' || command == '-s') {
+        setupConfig();
+    }
+    else if (command == "--help" || command == '-h') {
+        const package = require('./package.json');
+        console.log([
+            'SproutCSS\n',
+            'For further instructions, see documentation:\n',
+            `  ${package.homepage}\n`,
+            '\n',
+            'Options:\n',
+            '  --setup   Generate configuration file\n',
+            '  --version Show version number\n',
+            '  --help    Show help\n',
+            '\n',
+            'Usage:\n',
+            '  npx sproutcss --setup\n',
+
+        ].join(""))
+    }
+    else if (command == "--version" || command == '-v') {
+        console.log("sproutcss v" + package.version + '\n')
+    }
+    return
+}
+
+// if configuration file exists, continue
+// else, add sprout.config.js and return
+try {
+    // console.log(require.resolve('./sprout.config.js'));
+    const apple = "fruit";
+}
+catch {
+    console.error("Configuration file not found.");
+    setupConfig();
+    return
+}
+
+const { opendir, readFile, appendFile } = require('node:fs/promises');
 const { resolve, join } = require('node:path');
 
-// const { config } = require('../../sprout.config');
-
 // const rootPath = resolve(__dirname, '../../');
-// const { config } = require(join(rootPath, 'sprout.config.js'));
-
+// const { config } = require.resolve(join(rootPath, 'sprout.config.js'));
 let config = {
-    filename: "sprout.css",
+    path: "./sprout.css",
     files: [
-        ".html",
-        ".js"
-    ],
-    ignore: [
-        "folder1"
+        "html",
+        "js"
     ]
-}
-
-for (let i = 0; i < config.files.length; i++) {
-
-    if (config.files[i].startsWith(".")) {
-        config.files[i] = config.files[i].slice(1);
-    }
-}
-
-
-let writePath = "";
+};
 
 (async function () {
     let classesStr = "";
+
+    // remove "." from front of file extension names if present
+    for (let i = 0; i < config.files.length; i++) {
+
+        if (config.files[i].startsWith(".")) {
+            config.files[i] = config.files[i].slice(1);
+        }
+    }
 
     try {
         // get all unique css classes in the repository, filter out empty strings, and sort alphabetically
@@ -73,15 +108,16 @@ let writePath = "";
         rootArr = [...new Set(rootArr)].sort().join(' ');
         darkmodeArr = [...new Set(darkmodeArr)].sort().join(' ');
 
-        await writeFile(writePath, `/* Generated SproutCSS stylesheet \n CHANGES TO THIS FILE WILL BE OVERWRITTEN ON NEXT NPX SPROUTCSS.\n CHANGES T0 SPROUT CLASSES SHOULD BE MADE TO NODE_MODULES/SPROUTCSS/SPROUT.CSS BEFORE GENERATING IF NECESSARY */\n\n`);
-        await appendFile(writePath, `:root {\n${rootArr}}`);
-        await appendFile(writePath, `\n[data-theme="dark"]{\n${darkmodeArr}}`);
-        await appendFile(writePath, `\n${classesStr}`);
-        console.timeEnd()
+        await writeFile(config.path, `/* Generated SproutCSS stylesheet \n CHANGES TO THIS FILE WILL BE OVERWRITTEN ON NEXT NPX SPROUTCSS.\n CHANGES T0 SPROUT CLASSES SHOULD BE MADE TO NODE_MODULES/SPROUTCSS/SPROUT.CSS BEFORE GENERATING IF NECESSARY */\n\n`);
+        await appendFile(config.path, `:root {\n${rootArr}}`);
+        await appendFile(config.path, `\n[data-theme="dark"]{\n${darkmodeArr}}`);
+        await appendFile(config.path, `\n${classesStr}`);
+
+        console.log('Custom stylesheet generated at ' + config.path);
     } catch (err) {
         console.error(err);
     }
-})();
+})()
 
 // https://stackoverflow.com/questions/39467754/pushing-to-array-and-returning-it-from-the-recursive-function
 async function getFiles(folder, files) {
@@ -89,10 +125,6 @@ async function getFiles(folder, files) {
     const dir = await opendir(folder);
 
     for await (const dirent of dir) {
-        // get path of file to write to, defined in sprout.config
-        if (dirent.name == config.filename) {
-            writePath = `${folder}/${dirent.name}`;
-        }
 
         if (files.includes(dirent.name.split('.').pop()) || (!dirent.name.includes('.') && dirent.name != "node_modules")) {
 
@@ -200,3 +232,21 @@ function transformClasses(arr) {
     }
 }
 
+
+async function setupConfig() {
+    console.log("Created sprout.config.js\nPlease add the correct file extentions to the files array.\n")
+    try {
+        await writeFile("./sprout.config.js", [
+            'module.exports = {\n',
+            '   path: "./sprout.css",\n',
+            '   files: [\n',
+            '       "html"\n',
+            '   ]\n',
+            '}\n'
+        ].join(" ")
+        )
+    }
+    catch (err) {
+        console.error(err)
+    }
+}
