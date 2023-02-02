@@ -11,7 +11,6 @@
   --neutral-secondary-dark: rgb(240, 240, 240);
   --neutral-secondary-light: rgb(255, 255, 255);
 
-
   --grey: rgb(219, 219, 219);
   --grey-partial: rgb(219, 219, 219, 0.5);
   --grey-transparent: rgb(219, 219, 219, 0.1);
@@ -24,6 +23,84 @@
   --primary-transparent: rgb(107, 166, 255, 0.1);
   --primary-light: rgb(139, 186, 255);
   --primary-dark: rgb(67, 139, 247);
+
+  /* 
+  --red:#f94144;
+  --orange:#f8961e;
+  --yellow: #f9c74f;
+  --green : #90be6d;
+  --blue: #486cef;
+  --purple: #826aed;
+  --pink: #ed6ab8; */
+
+  --red: #f94144;
+  --red-partial: #f9414450;
+  --red-transparent: #f9414410;
+  --red-light: #ff4e51;
+  --red-dark: #e23a3d;
+
+  --orange: #f8961e;
+  --orange-partial: #f8961e50;
+  --orange-transparent: #f8961e10;
+  --orange-light: #ff9d26;
+  --orange-dark: #f59219;
+
+  --yellow: #f9c74f;
+  --yellow-partial: #f9c74f50;
+  --yellow-transparent: #f9c74f10;
+  --yellow-light: #ffcf5e;
+  --yellow-dark: #f4bf45;
+
+  --green: #90be6d;
+  --green-partial: #90be6d50;
+  --green-transparent: #90be6d10;
+  --green-light: #94c56f;
+  --green-dark: #80aa5f;
+
+  --blue: rgb(107, 196, 255);
+  --blue-partial: rgb(107, 196, 255, 0.5);
+  --blue-transparent: rgb(107, 196, 255, 0.1);
+  --blue-light: rgb(131, 204, 250);
+  --blue-dark: rgb(67, 181, 247);
+
+  --purple: rgb(159, 107, 255);
+  --purple-partial: rgb(159, 107, 255, 0.5);
+  --purple-transparent: rgb(159, 107, 255, 0.1);
+  --purple-light: rgb(159, 131, 250);
+  --purple-dark: rgb(136, 67, 247);
+
+  --pink: rgb(255, 128, 200);
+  --pink-partial: rgba(255, 119, 196, 0.5);
+  --pink-transparent: rgba(255, 119, 196, 0.1);
+  --pink-light: rgb(255, 146, 208);
+  --pink-dark: rgb(255, 81, 200);
+
+  --padding-xs: 0.4em 0.8em;
+  --padding-sm: 0.6em 1em;
+  --padding: 0.5em 1.4em;
+  --padding-md: 0.6em 1.8em;
+  --padding-lg: 0.4em 2em;
+
+  --shadow: rgba(99, 99, 99, 0.4);
+}
+[data-theme="dark"] {
+  --neutral-secondary: rgb(40, 40, 40);
+  --neutral-secondary-partial: rgb(40, 40, 40, 0.5);
+  --neutral-secondary-transparent: rgb(40, 40, 40, 0.1);
+  --neutral-secondary-dark: rgb(23, 23, 23);
+  --neutral-secondary-light: rgb(54, 54, 54);
+
+  --neutral-primary: rgb(248, 248, 248);
+  --neutral-primary-partial: rgb(248, 248, 248, 0.5);
+  --neutral-primary-transparent: rgb(248, 248, 248, 0.1);
+  --neutral-primary-dark: rgb(240, 240, 240);
+  --neutral-primary-light: rgb(255, 255, 255);
+
+  --grey: rgb(72, 72, 72);
+  --grey-partial: rgb(72, 72, 72, 0.5);
+  --grey-transparent: rgb(72, 72, 72, 0.1);
+  --grey-light: rgb(98, 98, 98);
+  --grey-dark: rgb(53, 53, 53);
 
   --red: rgb(255, 107, 107);
   --red-partial: rgb(255, 107, 107, 0.5);
@@ -67,34 +144,6 @@
   --pink-light: rgb(255, 146, 208);
   --pink-dark: rgb(255, 81, 200);
 
-  --padding-xs: 0.4em 0.8em;
-  --padding-sm: 0.6em 1em;
-  --padding: 0.5em 1.4em;
-  --padding-md: 0.6em 1.8em;
-  --padding-lg: 0.4em 2em;
-
-  --shadow: rgba(99, 99, 99, 0.4);
-}
-[data-theme="dark"] {
-  --neutral-secondary: rgb(40, 40, 40);
-  --neutral-secondary-partial: rgb(40, 40, 40, 0.5);
-  --neutral-secondary-transparent: rgb(40, 40, 40, 0.1);
-  --neutral-secondary-dark: rgb(23, 23, 23);
-  --neutral-secondary-light: rgb(54, 54, 54);
-
-  --neutral-primary: rgb(248, 248, 248);
-  --neutral-primary-partial: rgb(248, 248, 248, 0.5);
-  --neutral-primary-transparent: rgb(248, 248, 248, 0.1);
-  --neutral-primary-dark: rgb(240, 240, 240);
-  --neutral-primary-light: rgb(255, 255, 255);
-  
-
-  --grey: rgb(72, 72, 72);
-  --grey-partial: rgb(72, 72, 72, 0.5);
-  --grey-transparent: rgb(72, 72, 72, 0.1);
-  --grey-light: rgb(98, 98, 98);
-  --grey-dark: rgb(53, 53, 53);
-
   --shadow: rgba(113, 113, 113, 0.4);
 }
 
@@ -124,13 +173,12 @@ Buttons
   background-color: var(--primary-light);
   border-color: var(--primary-light);
 }
-.btn.h-primary:hover{
+.btn.h-primary:hover {
   background-color: var(--primary);
   border-color: var(--primary);
 }
 
-
-.btn.black{
+.btn.black {
   background-color: var(--neutral-primary);
   border-color: var(--neutral-primary);
 }
@@ -142,7 +190,7 @@ Buttons
   background-color: var(--neutral-primary-light);
   border-color: var(--neutral-primary-light);
 }
-.btn.h-black:hover{
+.btn.h-black:hover {
   background-color: var(--neutral-primary-dark);
   border-color: var(--neutral-primary-dark);
 }
@@ -174,7 +222,7 @@ Buttons
   background-color: var(--grey-light);
   border-color: var(--grey-light);
 }
-.btn.h-grey:hover{
+.btn.h-grey:hover {
   background-color: var(--grey);
   border-color: var(--grey);
 }
@@ -207,7 +255,7 @@ Buttons
   background-color: var(--red-light);
   border-color: var(--red-light);
 }
-.btn.h-red:hover{
+.btn.h-red:hover {
   background-color: var(--red);
   border-color: var(--red);
 }
@@ -239,7 +287,7 @@ Buttons
   background-color: var(--orange-light);
   border-color: var(--orange-light);
 }
-.btn.h-orange:hover{
+.btn.h-orange:hover {
   background-color: var(--orange);
   border-color: var(--orange);
 }
@@ -271,7 +319,7 @@ Buttons
   background-color: var(--yellow-light);
   border-color: var(--yellow-light);
 }
-.btn.h-yellow:hover{
+.btn.h-yellow:hover {
   background-color: var(--yellow);
   border-color: var(--yellow);
 }
@@ -303,7 +351,7 @@ Buttons
   background-color: var(--green-light);
   border-color: var(--green-light);
 }
-.btn.h-green:hover{
+.btn.h-green:hover {
   background-color: var(--green);
   border-color: var(--green);
 }
@@ -335,7 +383,7 @@ Buttons
   background-color: var(--blue-light);
   border-color: var(--blue-light);
 }
-.btn.h-blue:hover{
+.btn.h-blue:hover {
   background-color: var(--blue);
   border-color: var(--blue);
 }
@@ -367,7 +415,7 @@ Buttons
   background-color: var(--purple-light);
   border-color: var(--purple-light);
 }
-.btn.h-purple:hover{
+.btn.h-purple:hover {
   background-color: var(--purple);
   border-color: var(--purple);
 }
@@ -399,7 +447,7 @@ Buttons
   background-color: var(--pink-light);
   border-color: var(--pink-light);
 }
-.btn.h-pink:hover{
+.btn.h-pink:hover {
   background-color: var(--pink);
   border-color: var(--pink);
 }
@@ -447,13 +495,12 @@ Buttons
   font-size: x-large;
 }
 
-
 /* Shadow Button */
 .shdw-btn {
   border: 1px solid var(--primary);
   color: var(--primary);
   background-color: var(--neutral-secondary);
-    transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.05s ease, border-color 0.05s ease;
 }
 
 .shdw-btn.round {
@@ -760,7 +807,7 @@ Buttons
 }
 .icn-btn.h-green.h-outline:hover {
   background-color: var(--neutral-secondary);
-  color: var(--green)
+  color: var(--green);
 }
 .icn-btn.blue {
   background-color: var(--blue-partial);
@@ -778,7 +825,7 @@ Buttons
 }
 .icn-btn.blue.h-outline:hover {
   background-color: var(--neutral-secondary);
-  color: var(--blue)
+  color: var(--blue);
 }
 .icn-btn.h-blue:hover {
   background-color: var(--blue-partial);
@@ -796,7 +843,7 @@ Buttons
 }
 .icn-btn.h-blue.h-outline:hover {
   background-color: var(--neutral-secondary);
-  color: var(--blue)
+  color: var(--blue);
 }
 .icn-btn.purple {
   background-color: var(--purple-partial);
@@ -814,7 +861,7 @@ Buttons
 }
 .icn-btn.purple.h-outline:hover {
   background-color: var(--neutral-secondary);
-  color: var(--purple)
+  color: var(--purple);
 }
 .icn-btn.h-purple:hover {
   background-color: var(--purple-partial);
@@ -832,7 +879,7 @@ Buttons
 }
 .icn-btn.h-purple.h-outline:hover {
   background-color: var(--neutral-secondary);
-  color: var(--purple)
+  color: var(--purple);
 }
 .icn-btn.pink {
   background-color: var(--pink-partial);
@@ -850,7 +897,7 @@ Buttons
 }
 .icn-btn.pink.h-outline:hover {
   background-color: var(--neutral-secondary);
-  color: var(--pink)
+  color: var(--pink);
 }
 .icn-btn.h-pink:hover {
   background-color: var(--pink-partial);
@@ -868,7 +915,7 @@ Buttons
 }
 .icn-btn.h-pink.h-outline:hover {
   background-color: var(--neutral-secondary);
-  color: var(--pink)
+  color: var(--pink);
 }
 
 .icn-btn.round {
@@ -1201,39 +1248,39 @@ Cards
   border-color: var(--neutral-primary);
 }
 .otln-crd.red {
-  background-color: #f9414410;
-  color: #f94144;
-  border-color: #f94144;
+  background-color: var(--red-transparent);
+  color: var(--red);
+  border-color: var(--red);
 }
 .otln-crd.orange {
-  background-color: #f8961e10;
-  color: #f8961e;
-  border-color: #f8961e;
+  background-color: var(--orange-transparent);
+  color: var(--orange);
+  border-color: var(--orange);
 }
 .otln-crd.yellow {
-  background-color: #f9c74f10;
-  color: #f9c74f;
-  border-color: #f9c74f;
+  background-color: var(--yellow-transparent);
+  color: var(--yellow);
+  border-color: var(--yellow);
 }
 .otln-crd.green {
-  background-color: #90be6d10;
-  color: #90be6d;
-  border-color: #90be6d;
+  background-color: var(--green-transparent);
+  color: var(--green);
+  border-color: var(--green);
 }
 .otln-crd.blue {
-  background-color: #486cef10;
-  color: #486cef;
-  border-color: #486cef;
+  background-color: var(--blue-transparent);
+  color: var(--blue);
+  border-color: var(--blue);
 }
 .otln-crd.purple {
-  background-color: #826aed10;
-  color: #826aed;
-  border-color: #826aed;
+  background-color: var(--purple-transparent);
+  color: var(--purple);
+  border-color: var(--purple);
 }
 .otln-crd.pink {
-  background-color: #ed6ab810;
-  color: #ed6ab8;
-  border-color: #ed6ab8;
+  background-color: var(--pink-transparent);
+  color: var(--pink);
+  border-color: var(--pink);
 }
 
 .otln-crd.shadow {
@@ -1258,37 +1305,37 @@ Cards
   border-color: var(--neutral-primary);
 }
 .otln-crd.h-red:hover {
-  background-color: #f9414410;
-  color: #f94144;
-  border-color: #f94144;
+  background-color: var(--red-transparent);
+  color: var(--red);
+  border-color: var(--red);
 }
 .otln-crd.h-orange:hover {
-  background-color: #f8961e10;
-  color: #f8961e;
-  border-color: #f8961e;
+  background-color: var(--orange-transparent);
+  color: var(--orange);
+  border-color: var(--orange);
 }
 .otln-crd.h-yellow:hover {
-  background-color: #f9c74f10;
-  color: #f9c74f;
-  border-color: #f9c74f;
+  background-color: var(--yellow-transparent);
+  color: var(--yellow);
+  border-color: var(--yellow);
 }
 .otln-crd.h-green:hover {
-  background-color: #90be6d10;
-  color: #90be6d;
-  border-color: #90be6d;
+  background-color: var(--green-transparent);
+  color: var(--green);
+  border-color: var(--green);
 }
 .otln-crd.h-blue:hover {
-  background-color: #486cef10;
-  color: #486cef;
-  border-color: #486cef;
+  background-color: var(--blue-transparent);
+  color: var(--blue);
+  border-color: var(--blue);
 }
 .otln-crd.h-purple:hover {
-  background-color: #826aed10;
-  color: #826aed;
-  border-color: #826aed;
+  background-color: var(--purple-transparent);
+  color: var(--purple);
+  border-color: var(--purple);
 }
 .otln-crd.h-pink:hover {
-  background-color: #ed6ab810;
-  color: #ed6ab8;
-  border-color: #ed6ab8;
+  background-color: var(--pink-transparent);
+  color: var(--pink);
+  border-color: var(--pink);
 }
