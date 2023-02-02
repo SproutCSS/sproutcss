@@ -12,7 +12,7 @@ Check out the source code on [Github.](https://github.com/dejmedus/sproutcss)
 1. Install the SproutCSS module
 
 ```
-  npm install -D sproutcss
+  npm install --save-dev sproutcss
 ```
 
 2. Import the stylesheet
@@ -30,9 +30,9 @@ View the full changelog [here](https://sprout-docs.vercel.app/changelog)
 *What's Changed*
 - No more unused styling 🥳. Sprout now [generates a custom css file.](https://sprout-docs.vercel.app/docs/custom-stylesheet)
 - Therefore, this package is no longer needed in production. Install as a dev dependency.
--  If a component color is not specified, Sprout will now default to the primary color.
+- If a component color is not specified, Sprout will now default to the primary color.
 
 *What's New*
 
-- More customization options. Colors, hover styles, and borders.
+- More customization options. Colors, hover styles, and border widths.
 - New color options. Choose from primary, black, grey, red, orange, yellow, green, blue, purple, and pink.
