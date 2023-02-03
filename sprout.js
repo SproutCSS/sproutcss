@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 const { writeFile, readFile, opendir, appendFile } = require('node:fs/promises');
-const { resolve, join } = require('node:path');
+const { resolve } = require('node:path');
 
 let command = process.argv[2]
 
 if (command != null) {
     command = command.toLowerCase();
-    const package = require('./package.json');
+    const sprout = require('./package.json');
 
     if (command == '--setup' || command == '-s') {
         setupConfig();
@@ -16,7 +16,7 @@ if (command != null) {
         const primary = process.argv[3];
         if (primary == null || !primary.startsWith("#")) {
             console.log("Primary must be a hex color beginning with #\nUsage: npx sproutcss -p #76b8f5\n");
-            return
+            process.exit(1);
         }
         setPrimary(primary);
     }
@@ -24,7 +24,7 @@ if (command != null) {
         console.log([
             'SproutCSS\n',
             'For further instructions, see documentation:\n',
-            `  ${package.homepage}\n`,
+            `  ${sprout.homepage}\n`,
             '\n',
             'Options:\n',
             '  -s | --setup     Generate configuration file\n',
@@ -33,13 +33,14 @@ if (command != null) {
             '  -h | --help      Show help\n',
             '\n',
             'Usage:\n',
+            '  npx sproutcss\n',
             '  npx sproutcss --setup\n',
             '  npx sproutcss --primary #76b8f5\n',
 
         ].join(""))
     }
     else if (command == "--version" || command == '-v') {
-        console.log("sproutcss v" + package.version + '\n')
+        console.log("sproutcss v" + sprout.version + '\n')
     }
     return
 }
@@ -47,8 +48,7 @@ if (command != null) {
 // if configuration file exists, continue
 // else, add sprout.config.js and return
 try {
-    // console.log(require.resolve('./sprout.config.js'));
-    const apple = "fruit";
+    require.resolve('../../sprout.config.json');
 }
 catch {
     console.error("Configuration file not found.");
@@ -56,15 +56,13 @@ catch {
     return
 }
 
-// const rootPath = resolve(__dirname, '../../');
-// const { config } = require.resolve(join(rootPath, 'sprout.config.js'));
-let config = {
-    path: "./sprout.css",
-    files: [
-        "html",
-        "js"
-    ]
-};
+const config = require('../../sprout.config.json');
+
+
+if (config == null || config.path == null || config.path.trim() == "" || config.files == null || config.files == []) {
+    console.error("There is a problem with the configuration file.\nPlease ensure sprout.config includes both path and files array.\n\nUse command npx sproutcss -s to create a new sprout.config file.\n");
+    process.exit(1);
+}
 
 (async function () {
     let classesStr = "";
@@ -118,8 +116,6 @@ let config = {
 
         rootArr = [...new Set(rootArr)].sort().join(' ');
         darkmodeArr = [...new Set(darkmodeArr)].sort().join(' ');
-
-        // await writeFile(config.path, `/* Generated SproutCSS stylesheet \n CHANGES TO THIS FILE WILL BE OVERWRITTEN ON NEXT NPX SPROUTCSS.\n CHANGES T0 SPROUT CLASSES SHOULD BE MADE TO NODE_MODULES/SPROUTCSS/SPROUT.CSS BEFORE GENERATING IF NECESSARY */\n\n`);
         await writeFile(config.path, `/* Generated SproutCSS stylesheet \n Changes to this file will be overwritten on next npx sproutcss.\n If necessary, consider making changes to Sprout classes in node_modules/sproutcss/sprout.css before generating. */\n\n`);
         await appendFile(config.path, `:root {\n${rootArr}}`);
         await appendFile(config.path, `\n[data-theme="dark"]{\n${darkmodeArr}}`);
@@ -155,13 +151,13 @@ async function getFiles(folder, files) {
 
 
 async function getCSS(file) {
-    const components = ["icn-btn", "btn", "crd", "otln-crd", "shdw-btn", "icn-btn", "txt-i", "nmbr-i", "nv"];
+    const components = ["bdg", "btn", "crd", "icn-btn", "nmbr-i", "nv", "otln-crd", "shdw-btn", "txt-i"];
 
     try {
         const filePath = resolve(file);
         const contents = await readFile(filePath, { encoding: 'utf8' });
 
-        const results = contents.matchAll(/class="(?<css>[\s\S]*?)"/gm);
+        const results = contents.matchAll(/(class|className)="(?<css>[\s\S]*?)"/gm);
         let classes = []
         for (let result of results) {
             const { css } = result.groups;
@@ -247,19 +243,19 @@ function transformClasses(arr) {
 
 async function setupConfig() {
     try {
-        await writeFile("./sprout.config.js", [
-            'module.exports = {\n',
-            '   path: "./sprout.css",\n',
-            '   files: [\n',
+        await writeFile("./sprout.config.json", [
+            '{\n',
+            '   "path": "./sprout.css",\n',
+            '   "files": [\n',
             '       "html"\n',
             '   ]\n',
             '}\n'
         ].join(" ")
         )
-        console.log("Created sprout.config.js\nPlease add the correct file extensions to the files array.\n");
+        console.log("Created sprout.config.json\nPlease add the correct file extensions to the files array.\n");
     }
     catch (err) {
-        console.error("Could not create sprout.config.js", err);
+        console.error("Could not create sprout.config.json", err);
     }
 }
 
