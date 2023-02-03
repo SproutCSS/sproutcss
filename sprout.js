@@ -1,27 +1,40 @@
 #!/usr/bin/env node
 
-const { writeFile } = require('node:fs/promises');
+const { writeFile, readFile, opendir, appendFile } = require('node:fs/promises');
+const { resolve, join } = require('node:path');
+
 let command = process.argv[2]
 
 if (command != null) {
     command = command.toLowerCase();
+    const package = require('./package.json');
+
     if (command == '--setup' || command == '-s') {
         setupConfig();
     }
+    else if (command == '--primary' || command == '-p') {
+        const primary = process.argv[3];
+        if (primary == null || !primary.startsWith("#")) {
+            console.log("Primary must be a hex color beginning with #\nUsage: npx sproutcss -p #76b8f5\n");
+            return
+        }
+        setPrimary(primary);
+    }
     else if (command == "--help" || command == '-h') {
-        const package = require('./package.json');
         console.log([
             'SproutCSS\n',
             'For further instructions, see documentation:\n',
             `  ${package.homepage}\n`,
             '\n',
             'Options:\n',
-            '  --setup   Generate configuration file\n',
-            '  --version Show version number\n',
-            '  --help    Show help\n',
+            '  -s | --setup     Generate configuration file\n',
+            '  -p | --primary   Set primary color\n',
+            '  -v | --version   Show version number\n',
+            '  -h | --help      Show help\n',
             '\n',
             'Usage:\n',
             '  npx sproutcss --setup\n',
+            '  npx sproutcss --primary #76b8f5\n',
 
         ].join(""))
     }
@@ -42,9 +55,6 @@ catch {
     setupConfig();
     return
 }
-
-const { opendir, readFile, appendFile } = require('node:fs/promises');
-const { resolve, join } = require('node:path');
 
 // const rootPath = resolve(__dirname, '../../');
 // const { config } = require.resolve(join(rootPath, 'sprout.config.js'));
@@ -101,21 +111,23 @@ let config = {
                 classesStr += `\n${result}`;
             }
             else {
-                console.error(allClasses[i], "CSS style is missing")
+                // For testing purposes
+                console.error(allClasses[i], "CSS style is missing");
             }
         }
 
         rootArr = [...new Set(rootArr)].sort().join(' ');
         darkmodeArr = [...new Set(darkmodeArr)].sort().join(' ');
 
-        await writeFile(config.path, `/* Generated SproutCSS stylesheet \n CHANGES TO THIS FILE WILL BE OVERWRITTEN ON NEXT NPX SPROUTCSS.\n CHANGES T0 SPROUT CLASSES SHOULD BE MADE TO NODE_MODULES/SPROUTCSS/SPROUT.CSS BEFORE GENERATING IF NECESSARY */\n\n`);
+        // await writeFile(config.path, `/* Generated SproutCSS stylesheet \n CHANGES TO THIS FILE WILL BE OVERWRITTEN ON NEXT NPX SPROUTCSS.\n CHANGES T0 SPROUT CLASSES SHOULD BE MADE TO NODE_MODULES/SPROUTCSS/SPROUT.CSS BEFORE GENERATING IF NECESSARY */\n\n`);
+        await writeFile(config.path, `/* Generated SproutCSS stylesheet \n Changes to this file will be overwritten on next npx sproutcss.\n If necessary, consider making changes to Sprout classes in node_modules/sproutcss/sprout.css before generating. */\n\n`);
         await appendFile(config.path, `:root {\n${rootArr}}`);
         await appendFile(config.path, `\n[data-theme="dark"]{\n${darkmodeArr}}`);
         await appendFile(config.path, `\n${classesStr}`);
 
         console.log('Custom stylesheet generated at ' + config.path);
     } catch (err) {
-        console.error(err);
+        console.error('Could not generate custom stylesheet.\n' + err);
     }
 })()
 
@@ -172,7 +184,7 @@ async function getCSS(file) {
         }
         return classes
     } catch (err) {
-        console.error(err.message);
+        console.error(err);
     }
 
 }
@@ -234,7 +246,6 @@ function transformClasses(arr) {
 
 
 async function setupConfig() {
-    console.log("Created sprout.config.js\nPlease add the correct file extentions to the files array.\n")
     try {
         await writeFile("./sprout.config.js", [
             'module.exports = {\n',
@@ -245,8 +256,44 @@ async function setupConfig() {
             '}\n'
         ].join(" ")
         )
+        console.log("Created sprout.config.js\nPlease add the correct file extensions to the files array.\n");
     }
     catch (err) {
-        console.error(err)
+        console.error("Could not create sprout.config.js", err);
     }
+}
+
+async function setPrimary(primary) {
+    try {
+        const filePath = resolve(__dirname, "./sprout.css");
+        let contents = await readFile(filePath, { encoding: 'utf8' });
+
+        const regex = /--primary.*:(?<color>.*);/gm
+        const results = contents.matchAll(regex);
+
+        const primaryArr = [
+            `${primary}`,
+            `${primary}90`,
+            `${primary}50`,
+            `${primary}10`,
+            adjustHexColor(primary, 40),
+            adjustHexColor(primary, -40),
+        ]
+
+        let i = 0;
+        for (let result of results) {
+            contents = contents.replace(result.groups.color, ` ${primaryArr[i++]}`);
+        }
+
+        await writeFile(filePath, contents);
+        console.log(`Primary color has been set to ${primary}.\n`);
+    }
+    catch (err) {
+        console.error("Could not set new primary color.\n\n", err)
+    }
+}
+
+// https://stackoverflow.com/questions/5560248/programmatically-lighten-or-darken-a-hex-color-or-rgb-and-blend-colors
+function adjustHexColor(color, amount) {
+    return '#' + color.replace(/^#/, '').replace(/../g, color => ('0' + Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).slice(-2));
 }
