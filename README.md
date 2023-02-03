@@ -34,5 +34,7 @@ View the full changelog [here](https://sprout-docs.vercel.app/changelog)
 
 *What's New*
 
+- Set your projects [primary color](https://sprout-docs.vercel.app/docs/usage#primary-color) from the command line.
 - More customization options. Colors, hover styles, and border widths.
 - New color options. Choose from primary, black, grey, red, orange, yellow, green, blue, purple, and pink.
+- [Badges](https://sprout-docs.vercel.app/docs/Components/Badges)
