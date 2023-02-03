@@ -108,10 +108,6 @@ if (config == null || config.path == null || config.path.trim() == "" || config.
                 }
                 classesStr += `\n${result}`;
             }
-            else {
-                // For testing purposes
-                console.error(allClasses[i], "CSS style is missing");
-            }
         }
 
         rootArr = [...new Set(rootArr)].sort().join(' ');
