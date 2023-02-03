@@ -14,7 +14,7 @@ if (command != null) {
     }
     else if (command == '--primary' || command == '-p') {
         const primary = process.argv[3];
-        if (primary == null || !primary.startsWith("#")) {
+        if (primary == null || !/#[a-zA-Z0-9]{6}$/gm.test(primary)) {
             console.log("Primary must be a hex color beginning with #\nUsage: npx sproutcss -p #76b8f5\n");
             process.exit(1);
         }
