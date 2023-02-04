@@ -1425,13 +1425,12 @@ Inputs
 Cards
 -------------------------- */
 .crd {
-  background-color: var(--neutral-secondary);
-
-  /* default size */
+  /* defaults */
   padding: 1.4em;
   height: 300px;
   width: 280px;
   --card-width: 280px;
+  background-color: var(--primary-ninety);
 }
 
 .crd.square {
@@ -1460,12 +1459,16 @@ Cards
   --card-width: 330px;
 }
 
-.crd.primary {
-  background-color: var(--primary-ninety);
+.crd.white {
+  background-color: rgb(248, 248, 248);
+  color: rgb(40, 40, 40);
 }
 .crd.black {
-  background-color: var(--neutral-primary);
-  color: var(--neutral-secondary);
+  background-color: rgb(40, 40, 40);
+  color: rgb(248, 248, 248);
+}
+.crd.grey {
+  background-color: rgba(186, 186, 186, 0.8);
 }
 .crd.red {
   background-color: #f9414480;
@@ -1503,24 +1506,31 @@ Cards
 .crd.h-primary:hover {
   background-color: var(--primary-ninety);
 }
+.crd.h-white:hover {
+  background-color: rgb(248, 248, 248);
+  color: rgb(40, 40, 40);
+}
 .crd.h-black:hover {
-  background-color: var(--neutral-primary);
-  color: var(--neutral-secondary);
+  background-color: rgb(40, 40, 40);
+  color: vrgb(248, 248, 248);
+}
+.crd.h-grey:hover {
+  background-color: rgba(186, 186, 186, 0.8);
 }
 .crd.h-red:hover {
-  background-color: #f9414490;
+  background-color: #f9414480;
 }
 .crd.h-orange:hover {
-  background-color: #f8961e90;
+  background-color: #f8961e80;
 }
 .crd.h-yellow:hover {
-  background-color: #f9c74f90;
+  background-color: #f9c74f80;
 }
 .crd.h-green:hover {
-  background-color: #90be6d90;
+  background-color: #90be6d80;
 }
 .crd.h-blue:hover {
-  background-color: #486cef90;
+  background-color: #486cef80;
 }
 .crd.h-purple:hover {
   background-color: #826aed90;
@@ -1531,16 +1541,18 @@ Cards
 
 /* h-outline Card */
 .otln-crd {
-  border: var(--neutral-primary);
   border-style: solid;
   transition: color 0.15s ease, border-color 0.15s ease;
-  background-color: var(--neutral-secondary);
 
-  /* default size */
+  /* defaults */
   padding: 1.4em;
   height: 300px;
   width: 280px;
   --card-width: 280px;
+
+  background-color: var(--primary-transparent);
+  color: var(--primary);
+  border-color: var(--primary);
 }
 
 .otln-crd.b-two {
@@ -1585,15 +1597,15 @@ Cards
   --card-width: 330px;
 }
 
-.otln-crd.primary {
-  background-color: var(--primary-transparent);
-  color: var(--primary);
-  border-color: var(--primary);
+.otln-crd.white {
+  background-color: rgba(248, 248, 248, 0.4);
+  border-color: rgb(248, 248, 248);
+  color: rgb(40, 40, 40);
 }
 .otln-crd.black {
-  background-color: var(--neutral-secondary-transparent);
-  color: var(--neutral-primary);
-  border-color: var(--neutral-primary);
+  background-color: rgb(40, 40, 40, 0.4);
+  color: rgb(248, 248, 248);
+  border-color: rgb(40, 40, 40);
 }
 .otln-crd.red {
   background-color: var(--red-transparent);
@@ -1634,7 +1646,6 @@ Cards
 .otln-crd.shadow {
   box-shadow: var(--shadow) 0px 1px 5px 0px;
 }
-
 .otln-crd.h-shadow:hover {
   box-shadow: var(--shadow) 0px 2px 8px 0px;
 }
@@ -1647,10 +1658,16 @@ Cards
   color: var(--primary);
   border-color: var(--primary);
 }
+
+.otln-crd.h-white:hover {
+  background-color: rgba(248, 248, 248, 0.4);
+  border-color: rgb(248, 248, 248);
+  color: rgb(40, 40, 40);
+}
 .otln-crd.h-black:hover {
-  background-color: var(--neutral-secondary-transparent);
-  color: var(--neutral-primary);
-  border-color: var(--neutral-primary);
+  background-color: rgb(40, 40, 40, 0.4);
+  color: rgb(248, 248, 248);
+  border-color: rgb(40, 40, 40);
 }
 .otln-crd.h-red:hover {
   background-color: var(--red-transparent);
