@@ -172,9 +172,11 @@ async function getCSS(file) {
                     }
                 }
             }
-            classes.push(...arr);
+            if (components.includes(arr[0])) {
+                classes.push(...arr);
+            }
         }
-        return classes
+        return [...new Set(classes)];
     } catch (err) {
         console.error(err);
     }
@@ -182,15 +184,19 @@ async function getCSS(file) {
 }
 
 function transformClasses(arr) {
-    const colors = ["black", "grey", "primary", "red", "orange", "yellow", "green", "blue", "purple", "pink"];
+    const colors = ["black", "white", "grey", "primary", "red", "orange", "yellow", "green", "blue", "purple", "pink"];
 
     // if component has a  h-[color], hoverColor = h-[color]
     // else if component has a [color], hoverColor = [color] 
-    // else hoverColor = primary
+    // else hoverColor = null = primary
     let hoverColor = colors.filter(a => arr.includes(`h-${a}`))[0];
     if (hoverColor == null) {
         hoverColor = colors.filter(a => arr.includes(a))[0];
     }
+    else {
+        hoverColor = `h-${hoverColor}`
+    }
+
 
     for (let i = 1; i < arr.length; i++) {
 
@@ -198,11 +204,11 @@ function transformClasses(arr) {
             arr[i] = "";
         }
         else {
-            if (arr[i].startsWith("h-") && arr[i] != 'h-primary') {
+            if (arr[i].startsWith("h-")) {
                 if (arr[i] != "h-translate" && arr[i] != "h-no-translate") {
                     if (hoverColor != null) {
-                        if (arr[i] != `h-${hoverColor}`) {
-                            arr[i] = `${arr[0]}.h-${hoverColor}.${arr[i]}:hover`;
+                        if (arr[i] != hoverColor) {
+                            arr[i] = `${arr[0]}.${hoverColor}.${arr[i]}:hover`;
                         }
                         else {
                             arr[i] = `${arr[0]}.${arr[i]}:hover`;
@@ -228,8 +234,23 @@ function transformClasses(arr) {
             }
 
             else {
+                // quick fix for nmbr-i styling
                 if (arr[i] != 'primary') {
-                    arr[i] = `${arr[0]}.${arr[i]}`;
+                    if (arr[0] == 'nmbr-i' && arr[i] != "square" && arr[i] != 'nmbr-i' && arr[i] != "rounded") {
+                        if (['one', 'two', 'three', 'four', 'five', 'six'].includes(arr[i])) {
+                            arr.includes('sm')
+                                ? arr[i] = `${arr[0]}.sm.${arr[i]}`
+                                : arr.includes('md')
+                                    ? arr[i] = `${arr[0]}.md.${arr[i]}`
+                                    : arr[i] = `${arr[0]}.lg.${arr[i]}`
+                        }
+                        else if (['sm', 'md', 'lg'].includes(arr[i])) {
+                            arr[i] = `${arr[0]}.${arr[i]}`;
+                        }
+                    }
+                    else {
+                        arr[i] = `${arr[0]}.${arr[i]}`;
+                    }
                 }
             }
         }
